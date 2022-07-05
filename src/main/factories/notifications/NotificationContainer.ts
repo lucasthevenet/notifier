@@ -57,7 +57,7 @@ class NotificationContainer {
     const displayHeight = display.workArea.y + display.workAreaSize.height
 
     options.height = displayHeight
-    options.width = NotificationContainer.CONTAINER_WIDTH
+    options.width = displayWidth //NotificationContainer.CONTAINER_WIDTH
     options.alwaysOnTop = true
     options.skipTaskbar = true
     options.resizable = false
@@ -67,7 +67,7 @@ class NotificationContainer {
     options.show = false
     options.frame = false
     options.transparent = true
-    options.x = displayWidth - NotificationContainer.CONTAINER_WIDTH
+    options.x = 0 //displayWidth - NotificationContainer.CONTAINER_WIDTH
     options.y = 0
     options.webPreferences = {
       preload: join(__dirname, 'bridge.js'),
@@ -76,7 +76,7 @@ class NotificationContainer {
     }
     this.window = createWindow(options)
     this.window.setVisibleOnAllWorkspaces(true)
-    // this.window.setIgnoreMouseEvents(true, { forward: true })
+    this.window.setIgnoreMouseEvents(true, { forward: true })
     this.window.showInactive()
     this.window.webContents.openDevTools({ mode: 'detach' })
 

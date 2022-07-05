@@ -4,10 +4,15 @@ import { Transition } from '@headlessui/react'
 import { InboxIcon } from '@heroicons/react/outline'
 import { XIcon } from '@heroicons/react/solid'
 import type Notification from 'main/factories/notifications/Notification'
+import NotificationExpanded from 'renderer/components/NotificationExpanded'
+import { useMakeClickable } from 'renderer/hooks'
 
 export function AboutScreen() {
   const { App } = window // The "App" comes from the bridge
   const [notifications, setNotifications] = useState<Notification[]>([])
+
+  const notification = useMakeClickable()
+  const expanded = useMakeClickable()
 
   useEffect(() => {
     App.onNotificationAdded((_, notification) => {
@@ -35,6 +40,7 @@ export function AboutScreen() {
           ))}
         </div>
       </div>
+      <NotificationExpanded />
     </>
   )
 }
