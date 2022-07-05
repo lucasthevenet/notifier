@@ -15,14 +15,17 @@ export function MainScreen() {
 
     App.whenAboutWindowClose(({ message }) => {
       console.log(message)
-
-      store.setAboutWindowState(false)
     })
   }, [])
 
   function openAboutWindow() {
-    App.createAboutWindow()
-    store.setAboutWindowState(true)
+    App.createNotification({
+      content: {
+        title: 'About',
+        body: 'This is the about window',
+        icon: 'https://i.imgur.com/w3duR07.png',
+      },
+    })
   }
 
   return (
