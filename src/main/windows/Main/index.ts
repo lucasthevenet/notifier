@@ -17,6 +17,8 @@ export async function MainWindow() {
     movable: true,
     resizable: false,
     alwaysOnTop: true,
+    skipTaskbar: true,
+    autoHideMenuBar: true,
 
     webPreferences: {
       preload: join(__dirname, 'bridge.js'),

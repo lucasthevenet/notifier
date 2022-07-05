@@ -79,6 +79,14 @@ module.exports = {
             loader: 'css-loader',
             options: { modules: true },
           },
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [require('tailwindcss'), require('autoprefixer')],
+              },
+            },
+          },
           'sass-loader',
         ],
         include: /\.module\.s(a|c)ss$/,
@@ -86,7 +94,19 @@ module.exports = {
 
       isSassAvailable && {
         test: /\.s(a|c)ss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [require('tailwindcss'), require('autoprefixer')],
+              },
+            },
+          },
+          'sass-loader',
+        ],
         exclude: /\.module\.s(a|c)ss$/,
       },
 

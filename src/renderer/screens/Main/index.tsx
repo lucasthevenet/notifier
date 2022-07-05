@@ -31,13 +31,8 @@ export function MainScreen() {
 
       <h2>It's time to build something awesome! ✨</h2>
 
-      <nav>
-        <Button
-          className={store.isOpen ? 'disabled' : ''}
-          onClick={openAboutWindow}
-        >
-          Open About Window
-        </Button>
+      <nav className="flex gap-2">
+        <Button onClick={openAboutWindow}>Open About Window</Button>
 
         <Button onClick={() => navigate('anotherScreen')}>
           Go to Another screen

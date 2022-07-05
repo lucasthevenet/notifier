@@ -4,7 +4,7 @@ import React from 'react'
 import { WindowStoreProvider } from './store'
 import { AppRoutes } from './routes'
 
-import './styles/globals.sass'
+import './styles/globals.scss'
 
 ReactDom.render(
   <React.StrictMode>
