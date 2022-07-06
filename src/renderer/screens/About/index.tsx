@@ -1,5 +1,5 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import { Transition } from '@headlessui/react'
 import { InboxIcon } from '@heroicons/react/outline'
 import { XIcon } from '@heroicons/react/solid'
@@ -10,9 +10,8 @@ import { useMakeClickable } from 'renderer/hooks'
 export function AboutScreen() {
   const { App } = window // The "App" comes from the bridge
   const [notifications, setNotifications] = useState<Notification[]>([])
-
-  const notification = useMakeClickable()
-  const expanded = useMakeClickable()
+  const ref = useRef()
+  useMakeClickable(ref)
 
   useEffect(() => {
     App.onNotificationAdded((_, notification) => {
@@ -30,7 +29,10 @@ export function AboutScreen() {
         aria-live="assertive"
         className="fixed inset-0 flex items-end px-4 py-6 pointer-events-none sm:p-6 sm:items-start"
       >
-        <div className="w-full flex flex-col items-center space-y-4 sm:items-end">
+        <div
+          className="w-full flex flex-col items-center space-y-4 sm:items-end"
+          ref={ref as any}
+        >
           {/* Notification panel, dynamically insert this into the live region when it needs to be displayed */}
           {notifications.map((notification) => (
             <NotificationBlock
@@ -40,7 +42,7 @@ export function AboutScreen() {
           ))}
         </div>
       </div>
-      <NotificationExpanded />
+      {/* <NotificationExpanded /> */}
     </>
   )
 }
@@ -52,6 +54,8 @@ const NotificationBlock = ({
 }) => {
   const { App } = window
   const { title, body, description, icon } = notification.options.content
+  const ref = useRef()
+  useMakeClickable(ref)
   return (
     <Transition
       show
@@ -63,7 +67,10 @@ const NotificationBlock = ({
       leaveFrom="opacity-100"
       leaveTo="opacity-0"
     >
-      <div className="max-w-sm w-full bg-white shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden">
+      <div
+        className="max-w-sm w-full bg-white shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden"
+        ref={ref as any}
+      >
         <div className="p-4">
           <div className="flex items-start">
             <div className="flex-shrink-0">

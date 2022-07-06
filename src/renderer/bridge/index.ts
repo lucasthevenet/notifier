@@ -1,4 +1,4 @@
-import { contextBridge } from 'electron'
+import { contextBridge, ipcRenderer } from 'electron'
 
 import * as ipcs from './ipcs'
 
@@ -10,6 +10,8 @@ declare global {
 
 const API = {
   ...ipcs,
+  makeClickable: () => ipcRenderer.send('make-clickable'),
+  makeUnclickable: () => ipcRenderer.send('make-unclickable'),
   sayHelloFromBridge: () => console.log('\nHello from bridgeAPI! 👋\n\n'),
   username: process.env.USER,
 }

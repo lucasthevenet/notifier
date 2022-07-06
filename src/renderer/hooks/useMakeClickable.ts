@@ -1,15 +1,13 @@
-import React, { useRef } from 'react'
-import { ipcRenderer } from 'electron'
+import React, { RefObject, useRef } from 'react'
 import useEventListener from './useEventListener'
 
-export default function useMakeClickable() {
-  const elementRef = useRef<HTMLElement>(null)
+type Handler = (event: MouseEvent) => void
 
-  const handleMouseEnter = () => ipcRenderer.send('make-clickable')
-  const handleMouseLeave = () => ipcRenderer.send('make-unclickable')
+export default function useMakeClickable<T extends HTMLElement = HTMLElement>(
+  ref: RefObject<T>
+) {
+  const { App } = window
 
-  useEventListener('mouseenter', handleMouseEnter, elementRef)
-  useEventListener('mouseleave', handleMouseLeave, elementRef)
-
-  return elementRef
+  useEventListener('mouseenter', () => App.makeClickable(), ref)
+  useEventListener('mouseleave', () => App.makeUnclickable(), ref)
 }

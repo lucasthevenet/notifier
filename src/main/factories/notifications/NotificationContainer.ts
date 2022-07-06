@@ -91,32 +91,31 @@ class NotificationContainer {
     })
 
     ipcMain.on('notification-dismiss', (e: any, id: string) => {
-      console.log('notification-dismiss', id)
       const notification = this.notifications.find(
         (notification) => notification.id == id
       )
 
       if (notification) {
-        this.removeNotification(notification)
+        notification.close()
       }
     })
 
     ipcMain.on('make-clickable', (e: any) => {
-      this.window && this.window.setIgnoreMouseEvents(false)
+      this.window?.setIgnoreMouseEvents(false)
     })
 
     ipcMain.on('make-unclickable', (e: any) => {
-      this.window && this.window.setIgnoreMouseEvents(true, { forward: true })
+      this.window?.setIgnoreMouseEvents(true, { forward: true })
     })
 
-    this.window.webContents.on('did-finish-load', () => {
+    this.window?.webContents.on('did-finish-load', () => {
       this.ready = true
       this.notifications.forEach(this.displayNotification)
     })
 
-    // this.window.on('closed', () => {
-    //   this.window = null
-    // })
+    this.window.on('closed', () => {
+      this.window = null
+    })
   }
 
   /**

@@ -28,11 +28,11 @@ class NotificationManager {
    * @memberof NotificationManager
    */
   private static getContainer(): NotificationContainer {
-    if (!NotificationManager.container) {
-      NotificationManager.container = new NotificationContainer()
+    if (!this.container) {
+      this.container = new NotificationContainer()
     }
 
-    return NotificationManager.container
+    return this.container
   }
   /**
    * Destroys a notification (and container if there are none left).
@@ -42,13 +42,12 @@ class NotificationManager {
    * @memberof NotificationManager
    */
   public static destroyNotification(notification: Notification) {
-    if (NotificationManager.container) {
-      NotificationManager.container.removeNotification(notification)
-
+    if (this.container) {
+      this.container.removeNotification(notification)
       // Once we have no notifications left, destroy the container.
-      if (NotificationManager.container.notifications.length == 0) {
-        NotificationManager.container.dispose()
-        NotificationManager.container = null
+      if (this.container.notifications.length == 0) {
+        this.container.dispose()
+        this.container = null
       }
     }
   }
@@ -63,7 +62,7 @@ class NotificationManager {
   public static createNotification(
     options: INotificationOptions
   ): Notification {
-    const container = NotificationManager.getContainer()
+    const container = this.getContainer()
     const notification = new Notification(options)
 
     container.addNotification(notification)

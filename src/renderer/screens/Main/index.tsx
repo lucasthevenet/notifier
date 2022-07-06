@@ -25,6 +25,7 @@ export function MainScreen() {
         body: 'This is the about window',
         icon: 'https://i.imgur.com/w3duR07.png',
       },
+      timeout: 5000,
     })
   }
 
